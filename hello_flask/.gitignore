@@ -1,0 +1,12 @@
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Env files (secrets)
+.env
+.env.*
+
+# macOS system files
+.DS_Store
