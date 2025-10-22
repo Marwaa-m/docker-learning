@@ -1,0 +1,33 @@
+
+services:
+  web:
+    build: .
+    expose:
+      - "5002"                 # internal only — Nginx can reach it
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data       # persistent Redis data
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "5002:5002"            # expose Nginx on localhost:5002
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+
+volumes:
+  redis-data:
+
+
+  
